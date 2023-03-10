@@ -15,7 +15,7 @@
 @implementation JXPagerListContainerScrollView
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if (self.isCategoryNestPagingEnabled) {
-        if ([gestureRecognizer isMemberOfClass:NSClassFromString(@"UIScrollViewPanGestureRecognizer")]) {
+        if ([gestureRecognizer isKindOfClass:UIPanGestureRecognizer.class] && [gestureRecognizer.view isKindOfClass:UIScrollView.class]) {
             CGFloat velocityX = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:gestureRecognizer.view].x;
             //x大于0就是往右滑
             if (velocityX > 0) {
@@ -40,7 +40,7 @@
 @implementation JXPagerListContainerCollectionView
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if (self.isCategoryNestPagingEnabled) {
-        if ([gestureRecognizer isMemberOfClass:NSClassFromString(@"UIScrollViewPanGestureRecognizer")]) {
+        if ([gestureRecognizer isKindOfClass:UIPanGestureRecognizer.class] && [gestureRecognizer.view isKindOfClass:UIScrollView.class]) {
             CGFloat velocityX = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:gestureRecognizer.view].x;
             //x大于0就是往右滑
             if (velocityX > 0) {

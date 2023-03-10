@@ -578,9 +578,8 @@ class JXPagingListContainerViewController: UIViewController {
 class JXPagingListContainerScrollView: UIScrollView, UIGestureRecognizerDelegate {
     var isCategoryNestPagingEnabled = false
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if isCategoryNestPagingEnabled, let panGestureClass = NSClassFromString("UIScrollViewPanGestureRecognizer"), gestureRecognizer.isMember(of: panGestureClass) {
-            let panGesture = gestureRecognizer as! UIPanGestureRecognizer
-            let velocityX = panGesture.velocity(in: panGesture.view!).x
+        if isCategoryNestPagingEnabled, let panGesture = gestureRecognizer as? UIPanGestureRecognizer, let gestureView = panGesture.view, gestureView.isKind(of: UIScrollView.self) {
+            let velocityX = panGesture.velocity(in: gestureView).x
             if velocityX > 0 {
                 //当前在第一个页面，且往左滑动，就放弃该手势响应，让外层接收，达到多个PagingView左右切换效果
                 if contentOffset.x == 0 {
@@ -599,9 +598,8 @@ class JXPagingListContainerScrollView: UIScrollView, UIGestureRecognizerDelegate
 class JXPagingListContainerCollectionView: UICollectionView, UIGestureRecognizerDelegate {
     var isCategoryNestPagingEnabled = false
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if isCategoryNestPagingEnabled, let panGestureClass = NSClassFromString("UIScrollViewPanGestureRecognizer"), gestureRecognizer.isMember(of: panGestureClass)  {
-            let panGesture = gestureRecognizer as! UIPanGestureRecognizer
-            let velocityX = panGesture.velocity(in: panGesture.view!).x
+        if isCategoryNestPagingEnabled, let panGesture = gestureRecognizer as? UIPanGestureRecognizer, let gestureView = panGesture.view, gestureView.isKind(of: UIScrollView.self) {
+            let velocityX = panGesture.velocity(in: gestureView).x
             if velocityX > 0 {
                 //当前在第一个页面，且往左滑动，就放弃该手势响应，让外层接收，达到多个PagingView左右切换效果
                 if contentOffset.x == 0 {
